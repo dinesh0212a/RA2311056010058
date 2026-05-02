@@ -1,12 +1,10 @@
-// this file handles authentication with the evaluation server
-// it gets a bearer token and passes it to the logger so we don't have to do it manually
+
 
 const { setAuthToken, Log } = require('./logger');
 const http = require('http');
 
 const AUTH_URL = 'http://20.207.122.201/evaluation-service/auth';
 
-// simple http POST helper that works on all Node versions without external deps
 function httpPost(url, body) {
   return new Promise((resolve, reject) => {
     const parsed = new URL(url);
@@ -41,7 +39,6 @@ function httpPost(url, body) {
   });
 }
 
-// simple http GET helper with Authorization header support
 function httpGet(url, token) {
   return new Promise((resolve, reject) => {
     const parsed = new URL(url);
@@ -73,7 +70,6 @@ function httpGet(url, token) {
   });
 }
 
-// reads creds from env variables, or you can pass them in directly
 async function authenticate(creds = {}) {
   const payload = {
     email: creds.email || process.env.AUTH_EMAIL,
@@ -84,7 +80,6 @@ async function authenticate(creds = {}) {
     clientSecret: creds.clientSecret || process.env.AUTH_CLIENT_SECRET,
   };
 
-  // check if any required fields are missing before hitting the API
   const missing = Object.entries(payload)
     .filter(([, val]) => !val)
     .map(([key]) => key);
@@ -98,14 +93,10 @@ async function authenticate(creds = {}) {
   if (result.status < 200 || result.status >= 300 || !result.body.access_token) {
     throw new Error(`Auth failed (${result.status}): ${JSON.stringify(result.body)}`);
   }
-
-  // store the token so the logger can use it right away
   setAuthToken(result.body.access_token);
 
-  // also expose it as an env variable so service fetch calls can reference it
   process.env.AUTH_TOKEN = result.body.access_token;
 
-  // log to the evaluation server — token is already set above so this will succeed
   await Log('backend', 'info', 'auth', `Auth OK. Token expires in ${result.body.expires_in}s`);
   return result.body.access_token;
 }
