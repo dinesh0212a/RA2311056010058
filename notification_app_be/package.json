@@ -1,0 +1,12 @@
+{
+  "name": "notification-app-be",
+  "version": "1.0.0",
+  "description": "Campus Notification Platform – Backend (Stages 1-6)",
+  "main": "priority_inbox.js",
+  "scripts": {
+    "priority-inbox": "node priority_inbox.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

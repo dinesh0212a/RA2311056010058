@@ -1,0 +1,10 @@
+{
+  "name": "logging-middleware",
+  "version": "1.0.0",
+  "description": "Reusable Log(stack,level,package,message) middleware for the campus hiring evaluation server",
+  "main": "logger.js",
+  "scripts": {
+    "test": "node -e \"require('./logger'); console.log('Logger module loaded OK');\""
+  },
+  "dependencies": {}
+}

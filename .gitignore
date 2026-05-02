@@ -1,0 +1,10 @@
+node_modules/
+*.log
+.env
+setup.ps1
+test-auth.js
+__pycache__/
+*.pyc
+.DS_Store
+dist/
+build/

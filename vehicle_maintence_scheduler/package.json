@@ -1,0 +1,12 @@
+{
+  "name": "vehicle-maintence-scheduler",
+  "version": "1.0.0",
+  "description": "Optimal vehicle maintenance scheduling via 0/1 Knapsack DP",
+  "main": "scheduler.js",
+  "scripts": {
+    "start": "node scheduler.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
